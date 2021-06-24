@@ -23,18 +23,18 @@ namespace CacheManager.Redis
     internal class RedisValueConverter :
         IRedisValueConverter,
         IRedisValueConverter<byte[]>,
-        IRedisValueConverter<byte>,
+       // IRedisValueConverter<byte>,
         IRedisValueConverter<string>,
         IRedisValueConverter<int>,
         IRedisValueConverter<uint>,
         IRedisValueConverter<short>,
-        IRedisValueConverter<ushort>,
+        //IRedisValueConverter<ushort>,
         IRedisValueConverter<float>,
         IRedisValueConverter<double>,
         IRedisValueConverter<bool>,
         IRedisValueConverter<long>,
         IRedisValueConverter<ulong>,
-        IRedisValueConverter<char>,
+        //IRedisValueConverter<char>,
         IRedisValueConverter<object>
     {
         private static readonly Type _byteArrayType = typeof(byte[]);
@@ -63,9 +63,12 @@ namespace CacheManager.Redis
 
         byte[] IRedisValueConverter<byte[]>.FromRedisValue(RedisValue value, string valueType) => value;
 
-        RedisValue IRedisValueConverter<byte>.ToRedisValue(byte value) => value;
+        //RedisValue IRedisValueConverter<byte>.ToRedisValue(byte value)
+        //{
+        //    return RedisValue.Unbox(value);
+        //}
 
-        byte IRedisValueConverter<byte>.FromRedisValue(RedisValue value, string valueType) => (byte)value;
+       // byte IRedisValueConverter<byte>.FromRedisValue(RedisValue value, string valueType) => (byte)value;
 
         RedisValue IRedisValueConverter<string>.ToRedisValue(string value) => value;
 
@@ -83,9 +86,9 @@ namespace CacheManager.Redis
 
         short IRedisValueConverter<short>.FromRedisValue(RedisValue value, string valueType) => (short)value;
 
-        RedisValue IRedisValueConverter<ushort>.ToRedisValue(ushort value) => value;
+        //RedisValue IRedisValueConverter<ushort>.ToRedisValue(ushort value) => value;
 
-        ushort IRedisValueConverter<ushort>.FromRedisValue(RedisValue value, string valueType) => (ushort)value;
+        //ushort IRedisValueConverter<ushort>.FromRedisValue(RedisValue value, string valueType) => (ushort)value;
 
         RedisValue IRedisValueConverter<float>.ToRedisValue(float value) => (double)value;
 
@@ -109,9 +112,9 @@ namespace CacheManager.Redis
 
         ulong IRedisValueConverter<ulong>.FromRedisValue(RedisValue value, string valueType) => ulong.Parse(value);
 
-        RedisValue IRedisValueConverter<char>.ToRedisValue(char value) => value;
+        //RedisValue IRedisValueConverter<char>.ToRedisValue(char value) => value;
 
-        char IRedisValueConverter<char>.FromRedisValue(RedisValue value, string valueType) => (char)value;
+        //char IRedisValueConverter<char>.FromRedisValue(RedisValue value, string valueType) => (char)value;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Scope = "member", Target = "CacheManager.Redis.RedisValueConverter.#CacheManager.Redis.IRedisValueConverter`1<System.Object>.ToRedisValue(System.Object)", Justification = "For performance reasons we don't do checks at this point. Also, its internally used only.")]
         RedisValue IRedisValueConverter<object>.ToRedisValue(object value)
